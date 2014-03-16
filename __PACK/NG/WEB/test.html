@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="NG">
+	<head>
+		<meta charset="utf-8">
+
+		<title>NG Test</title>
+
+		<script src="/__SCRIPT"></script>
+		<script>
+			NG.INIT(NG, function(INSERT_CTRL, MATCH_VIEW) {
+
+				MATCH_VIEW({
+					uris : ['Test1'],
+					page : 'test1.html'
+				});
+
+				MATCH_VIEW({
+					uris : ['Test2'],
+					page : 'test2.html'
+				});
+
+			});
+		</script>
+
+	</head>
+
+	<body>
+		<a href="#/Test1">Test1</a>
+		<a href="#/Test2">Test2</a>
+		<div ng-view></div>
+	</body>
+</html>
