@@ -32,9 +32,7 @@ NG.VIEW = CLASS({
 				});
 			};
 
-			if ($scope !== undefined) {
-				($scope.$$phase || $scope.$root.$$phase) ? f() : $scope.$apply(f);
-			}
+			($scope === undefined || $scope.$$phase !== TO_DELETE || ($scope.$root !== undefined && $scope.$root.$$phase !== TO_DELETE)) ? f() : $scope.$apply(f);
 		};
 
 		self.close = close = function() {
