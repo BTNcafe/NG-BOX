@@ -5,6 +5,13 @@
 
 		<title>NG Test</title>
 
+	</head>
+
+	<body>
+		<a href="#/Test1">Test1</a>
+		<a href="#/Test2">Test2</a>
+		<div ng-view></div>
+
 		<script src="/__SCRIPT"></script>
 		<script>
 			NG.INIT(NG, function(INSERT_CTRL, MATCH_VIEW) {
@@ -21,12 +28,5 @@
 
 			});
 		</script>
-
-	</head>
-
-	<body>
-		<a href="#/Test1">Test1</a>
-		<a href="#/Test2">Test2</a>
-		<div ng-view></div>
 	</body>
 </html>

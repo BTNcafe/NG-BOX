@@ -2,7 +2,9 @@ NG.INIT = METHOD({
 
 	run : function(m, box, callback) {'use strict';
 
-		angular.module(box.boxName, ['ngRoute']).config(function($routeProvider) {
+		var
+		// controller
+		controller = function($routeProvider) {
 
 			callback(function(target) {
 
@@ -18,6 +20,8 @@ NG.INIT = METHOD({
 						$scope[name] = value;
 					});
 				};
+
+				target.controller['$inject'] = ['$scope'];
 
 			}, function(params) {
 
@@ -36,28 +40,34 @@ NG.INIT = METHOD({
 
 				EACH(uris, f = function(uri) {
 
+					var
+					// controller
+					controller = function($scope, $routeParams) {
+
+						var
+						// view
+						view;
+
+						if (target !== undefined) {
+
+							view = target($routeParams);
+
+							view.$scope = $scope;
+
+							EACH(view, function(value, name) {
+								$scope[name] = value;
+							});
+
+							$scope.$on('$routeChangeStart', function() {
+								view.close();
+							});
+						}
+					};
+					
+					controller['$inject'] = ['$scope', '$routeParams'];
+
 					$routeProvider.when('/' + uri, {
-						controller : function($scope, $routeParams) {
-
-							var
-							// view
-							view;
-
-							if (target !== undefined) {
-
-								view = target($routeParams);
-
-								view.$scope = $scope;
-
-								EACH(view, function(value, name) {
-									$scope[name] = value;
-								});
-
-								$scope.$on('$routeChangeStart', function() {
-									view.close();
-								});
-							}
-						},
+						controller : controller,
 						templateUrl : page,
 						template : page === undefined ? '&nbsp;' : undefined
 					});
@@ -67,6 +77,10 @@ NG.INIT = METHOD({
 			$routeProvider.otherwise({
 				redirectTo : '/'
 			});
-		});
+		};
+
+		controller['$inject'] = ['$routeProvider'];
+
+		angular.module(box.boxName, ['ngRoute']).config(controller);
 	}
 });
