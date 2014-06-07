@@ -8,20 +8,23 @@ NG.INIT = METHOD({
 
 			callback(function(target) {
 
-				target.controller = function($scope) {
+				target.controller = function($scope, $location) {
 
 					var
 					// view
 					view = target();
 
 					view.$scope = $scope;
+					view.$location = $location;
+
+					$scope.global = global;
 
 					EACH(view, function(value, name) {
 						$scope[name] = value;
 					});
 				};
 
-				target.controller['$inject'] = ['$scope'];
+				target.controller['$inject'] = ['$scope', '$location'];
 
 			}, function(params) {
 
@@ -42,7 +45,7 @@ NG.INIT = METHOD({
 
 					var
 					// controller
-					controller = function($scope, $routeParams) {
+					controller = function($scope, $location, $routeParams) {
 
 						var
 						// view
@@ -53,18 +56,21 @@ NG.INIT = METHOD({
 							view = target($routeParams);
 
 							view.$scope = $scope;
+							view.$location = $location;
 
 							EACH(view, function(value, name) {
 								$scope[name] = value;
 							});
+
+							$scope.global = global;
 
 							$scope.$on('$routeChangeStart', function() {
 								view.close();
 							});
 						}
 					};
-					
-					controller['$inject'] = ['$scope', '$routeParams'];
+
+					controller['$inject'] = ['$scope', '$location', '$routeParams'];
 
 					$routeProvider.when('/' + uri, {
 						controller : controller,
