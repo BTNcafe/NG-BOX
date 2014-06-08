@@ -65,6 +65,11 @@ NG.INIT = METHOD({
 							$scope.global = global;
 
 							$scope.$on('$routeChangeStart', function() {
+
+								EACH(view, function(value, name) {
+									delete $scope[name];
+								});
+
 								view.close();
 							});
 						}
