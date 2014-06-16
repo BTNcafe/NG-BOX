@@ -46,7 +46,11 @@ NG.VIEW = CLASS({
 
 		self.go = go = function(path) {
 			apply(function() {
-				self.$location.path(path);
+				if (self.$location.path() === path) {
+					location.reload();
+				} else {
+					self.$location.path(path);
+				}
 			});
 		};
 
