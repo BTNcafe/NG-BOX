@@ -1,6 +1,6 @@
 NG.INIT = METHOD({
 
-	run : function(m, box, callback) {'use strict';
+	run : function(box, callback) {'use strict';
 
 		var
 		// controller

@@ -3,7 +3,7 @@
  */
 NG.VIEW = CLASS({
 
-	init : function(cls, inner, self) {'use strict';
+	init : function(inner, self) {'use strict';
 
 		var
 		// apply.

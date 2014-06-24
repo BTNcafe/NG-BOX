@@ -5,7 +5,7 @@ BOOT({
 		defaultBoxName : 'NG',
 		//isDevMode : true
 	},
-	SERVER_CONFIG : {
+	NODE_CONFIG : {
 		isNotUsingDB : true
 	}
 });
